@@ -14,13 +14,13 @@ class Solution {
   public:
     int largest(vector<int> &arr) {
         // code here
-        int maxElement=arr[0];
-        for(int i=1;i<arr.size();i++)
+        int max=arr[0];
+        for(int i=0;i<arr.size();i++)
         {
-            if(arr[i]>maxElement)
-                maxElement=arr[i];
+            if(max<arr[i])
+               max=arr[i];
         }
-        return maxElement;
+        return max;
     }
 };
 
