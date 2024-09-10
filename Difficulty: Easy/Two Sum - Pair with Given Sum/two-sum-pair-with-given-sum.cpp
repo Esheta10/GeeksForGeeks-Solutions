@@ -11,22 +11,24 @@ class Solution {
     // whose sum is equal to the given value
     bool hasArrayTwoCandidates(vector<int>& arr, int x) {
         // code here
-        int n=arr.size();
-        int left=0,right=n-1;
+        int i=0;
+        int j=arr.size()-1;
+        int target=x;
         sort(arr.begin(),arr.end());
-        while(left<right)
+        while(i<j)
         {
-            int sum=arr[left]+arr[right];
-            if(sum==x)
+            int sum=arr[i]+arr[j];
+            if(sum<target)
+                i++;
+            else if(sum>target)
+                j--;
+            else
             {
+                //sum==target
                 return true;
             }
-            else if(sum<x)
-                left++;
-            else
-                right--;
         }
-        return false;
+         return false;
     }
 };
 
