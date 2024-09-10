@@ -32,18 +32,16 @@ int main() {
 //User function Template for C++
 
 int sumExists(int arr[], int n, int sum){
-    //code here
-    int left=0,right=n-1;
-    sort(arr,arr+n);
-    while(left<right)
+    map<int,int> mp;
+    for(int i=0;i<n;i++)
     {
-        int add=arr[left]+arr[right];
-        if(add==sum)
-            return 1;
-        else if(add<sum)
-            left++;
-        else
-            right--;
+        int remaining=sum-arr[i];
+        if(mp.find(remaining)!=mp.end())
+                return 1;//pair exists
+                
+            mp[arr[i]]=i;
     }
     return 0;
+    
+    //code here
 }
