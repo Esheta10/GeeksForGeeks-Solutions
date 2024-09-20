@@ -14,18 +14,13 @@ class Solution {
     int missingNumber(int n, vector<int>& arr) {
 
         // Your code goes here
-       int result=n;
-       for(int i=0;i<n;i++)
-       {
-              result ^= i;
-       }
-        
-        for(int i=0;i<n-1;i++)
+        int total=n*(n+1)/2;
+        int sum=0;
+        for(int i=0;i<arr.size();i++)
         {
-            result ^= arr[i];
+            sum += arr[i];
         }
-            
-        return result;
+        return total-sum;
     }
 };
 
