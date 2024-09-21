@@ -51,28 +51,28 @@ class Solution {
   public:
     vector<vector<int>> getPairs(vector<int>& arr) {
         // code here
-        int n=arr.size();
-        int left=0,right=n-1;
+        int n = arr.size();
+        
+        int i=0;
+        int j=n-1;
+        
         sort(arr.begin(),arr.end());
+        
         vector<vector<int>> result;
-        while(left<right)
+        while(i<j)
         {
-            int sum=arr[left]+arr[right];
-            if(sum==0)
-            {
-                result.push_back({arr[left],arr[right]});
-                int leftValue=arr[left];
-                int rightValue=arr[right];
-                
-                while(left<right && arr[left]==leftValue)
-                    left++;
-                while(left<right && arr[right]==rightValue)
-                right--;
-            }
-            else if(sum<0)
-                left++;
+            if((arr[i]+arr[j])<0)i++;
+            else if((arr[i]+arr[j])>0)j--;
             else
-                right--;
+            {
+                result.push_back({arr[i],arr[j]});
+                
+                while(i<j && arr[i]==arr[i+1])i++;
+                while(i<j && arr[j]==arr[j-1])j--;
+                i++;
+                j--;
+                
+            }
         }
         return result;
     }
