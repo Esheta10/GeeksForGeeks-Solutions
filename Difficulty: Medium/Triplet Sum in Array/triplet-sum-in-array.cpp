@@ -9,38 +9,36 @@ class Solution {
 
     // Should return true if there exists a triplet in the
     // array arr[] which sums to x. Otherwise false
-    bool twoSum(int arr[],int target,int i,int j)
+    bool twoSum(int arr[],int x,int i,int j)
     {
-
         while(i<j)
         {
             int sum=arr[i]+arr[j];
-            if(sum<target)i++;
-            else if(sum>target)j--;
+            if(sum<x)i++;
+            else if(sum>x)j--;
             else
             {
-                //found a valid pair 
+                while(i<j && arr[i]==arr[i+1])i++;
+                while(i<j && arr[j]==arr[j-1])j--;
                 return true;
+                i++;
+                j--;
             }
         }
         return false;
     }
     bool find3Numbers(int arr[], int n, int x) {
         // Your Code Here
-        if(n<3)
-            return false;
-      
         sort(arr,arr+n);
+        
         for(int i=0;i<=n-3;i++)
         {
             if(i>0 && arr[i]==arr[i-1])
-            {
                 continue;
-            }
-            //int n1=arr[i];
-            int target=x-arr[i];
-           if(twoSum(arr,target,i+1,n-1))
-            return true;
+                
+           int requiredSum=x-arr[i];
+           
+            if(twoSum(arr,requiredSum,i+1,n-1)) return true;
         }
         return false;
     }
