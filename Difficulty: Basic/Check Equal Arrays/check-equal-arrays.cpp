@@ -13,18 +13,12 @@ class Solution {
     // Function to check if two arrays are equal or not.
     bool check(vector<int>& arr1, vector<int>& arr2) {
         // code here
-        unordered_map<int,int> freq;
-        for(int num:arr1)
-            freq[num]++;
-            
-        for(int num:arr2)
-            freq[num]--;
-            
-        for(auto it:freq)
-        {
-            if(it.second!=0)return false;
-        }
-        return true;
+        sort(arr1.begin(),arr1.end());
+        sort(arr2.begin(),arr2.end());
+        if(arr1==arr2)
+            return true;
+        else 
+            return false;
     }
 };
 
