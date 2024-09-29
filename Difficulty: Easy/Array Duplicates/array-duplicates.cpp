@@ -109,22 +109,24 @@ class Solution {
   public:
     vector<int> duplicates(vector<int> arr) {
         // code here
-        unordered_set<int> seen;
-        unordered_set<int> duplicates;
-        for(int num:arr)
+        int n=arr.size();
+        unordered_map<int,int> freq;
+        
+        vector<int> result;
+        for(int i=0;i<n;i++)
         {
-            if(seen.find(num)!=seen.end())
-               duplicates.insert(num);
-            else
-                seen.insert(num);
+            freq[arr[i]]++;
         }
-        //convert unordered set to vector
-        vector<int> result(duplicates.begin(),duplicates.end());
-        sort(result.begin(),result.end());
+        for(auto &it:freq)
+        {
+            if(it.second>1)
+                result.push_back(it.first);
+        }
         if(result.empty())
-        {
-            result.push_back(-1);
-        }
+            return {-1};
+            
+        sort(result.begin(),result.end());
+        
         return result;
     }
 };
