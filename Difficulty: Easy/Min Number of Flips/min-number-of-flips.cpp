@@ -21,22 +21,28 @@ int32_t main()
 int minFlips (string S)
 {
     // your code here
-    int n=S.length();
-    int start_with_zero=0;//0101010101..
-    for(int i=0;i<n;i++)
-    {
-        if(i%2==0)//even
-        {
-            if(S[i]=='1')
-                start_with_zero++;
-        }
-        else//odd
-        {
-            if(S[i]=='0')
-                start_with_zero++;
+    int n = S.length();
+    int flipCount1 = 0, flipCount2 = 0;
+
+    // Checking with the pattern starting with '0' (i.e., "010101...")
+    for (int i = 0; i < n; i++) {
+        // For even index, expected character is '0', for odd index it is '1'
+        if (i % 2 == 0 && S[i] != '0') {
+            flipCount1++;  // Flip needed
+        } else if (i % 2 == 1 && S[i] != '1') {
+            flipCount1++;  // Flip needed
         }
     }
-        int start_with_one=n-start_with_zero;   
-        return min(start_with_one,start_with_zero); 
-    
+    // Checking with the pattern starting with '1' (i.e., "101010...")
+    for (int i = 0; i < n; i++) {
+        // For even index, expected character is '1', for odd index it is '0'
+        if (i % 2 == 0 && S[i] != '1') {
+            flipCount2++;  // Flip needed
+        } else if (i % 2 == 1 && S[i] != '0') {
+            flipCount2++;  // Flip needed
+        }
+    }
+
+    // Return the minimum number of flips between the two patterns
+    return min(flipCount1, flipCount2);
 }
