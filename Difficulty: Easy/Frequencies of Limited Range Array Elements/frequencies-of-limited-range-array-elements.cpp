@@ -8,20 +8,25 @@ class Solution {
   public:
     // Function to count the frequency of all elements from 1 to N in the array.
     void frequencyCount(vector<int>& arr, int N, int P) {
-        
-        unordered_map<int,int>freq;
-        for(int i=0;i<N;i++){
-            if(arr[i] <=N){
-                freq[arr[i]]++;
-            }
-            
-        }
-        for(int i=0;i<N;i++){
-            arr[i] = freq[i+1];
+        // do modify in the given array
+    // Step 1: Decrease all values by 1 to handle 1-based indexing.
+    for (int i = 0; i < N; i++) {
+        arr[i]--;
+    }
+
+    // Step 2: Use elements of arr[] as index and increase corresponding elements by n.
+    for (int i = 0; i < N; i++) {
+        if (arr[i] % P < N) {
+            arr[arr[i] % P] += P;
         }
     }
-};
 
+    // Step 3: Compute the frequency of each element in the modified array.
+    for (int i = 0; i < N; i++) {
+        arr[i] = arr[i] / P;
+    }
+    }
+};
 
 
 //{ Driver Code Starts.
