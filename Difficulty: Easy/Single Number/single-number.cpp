@@ -10,12 +10,11 @@ class Solution {
   public:
     int getSingle(vector<int>& arr) {
         // code here
-        int xorr=0;
-        for(int i=0;i<arr.size();i++)
-        {
-            xorr ^= arr[i];
-        }
-        return xorr;
+    int result = 0;
+    for (int num : arr) {
+        result ^= num; // Apply XOR to each element
+    }
+    return result; // The remaining number is the one that occurs an odd number of times
     }
 };
 
