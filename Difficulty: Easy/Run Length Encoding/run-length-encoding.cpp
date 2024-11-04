@@ -10,18 +10,28 @@ class Solution {
     string encode(string s) {
         // code here
         int n=s.length();
-        string encoded="";
-        for(int i=0;i<n;i++)
+        string result = "";
+        int i=0;
+        int index=0;
+        
+        while(i<n)
         {
-            int count=1;
-            while(i<n-1 && s[i]==s[i+1])
+            char curr_char=s[i];
+            int count=0;
+            
+            //find count of duplicates
+            while(i<n && s[i]==curr_char)
             {
-                    count++;
-                    i++;
+                i++;
+                count++;
             }
-            encoded+=s[i]+to_string(count);
+            //append the curr_char to the result
+            result += curr_char;
+            //add the count 
+              result += to_string(count);
+            
         }
-        return encoded;
+        return result;
     }
 };
 
@@ -41,7 +51,9 @@ int main(){
         
         cout<<res<<"\n";
         
-    }
+    
+cout << "~" << "\n";
+}
 }
 
 // } Driver Code Ends
