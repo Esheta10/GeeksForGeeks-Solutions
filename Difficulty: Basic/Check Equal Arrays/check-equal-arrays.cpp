@@ -15,10 +15,8 @@ class Solution {
         // code here
         sort(arr1.begin(),arr1.end());
         sort(arr2.begin(),arr2.end());
-        if(arr1==arr2)
-            return true;
-        else 
-            return false;
+        
+        return arr1==arr2;
     }
 };
 
@@ -46,7 +44,7 @@ int main() {
         }
 
         Solution ob;
-        cout << (ob.check(arr1, arr2) ? "true" : "false") << "\n";
+        cout << (ob.check(arr1, arr2) ? "true" : "false") << "\n~\n";
     }
     return 0;
 }
