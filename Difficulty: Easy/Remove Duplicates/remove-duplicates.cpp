@@ -8,26 +8,22 @@ using namespace std;
 class Solution {
   public:
 
-    string removeDups(string str) {
+    string removeDups(string s) {
         // Your code goes here
+        
         unordered_set<char> seen;
         string result;
-        
-        for(char c: str)
+        for(char ch:s)
         {
-            if(seen.find(c)==seen.end())
+            if(seen.find(ch)==seen.end())
             {
-                result.push_back(c);
-                seen.insert(c);
+                result.push_back(ch);
+                seen.insert(ch);
             }
         }
         return result;
     }
 };
-/*The insert function adds an element to the unordered_set.
-If the element already exists in the set, the insertion has no effect 
-(i.e., it does not add the element again). 
-This ensures that each element in the set is unique.*/
 
 //{ Driver Code Starts.
 
