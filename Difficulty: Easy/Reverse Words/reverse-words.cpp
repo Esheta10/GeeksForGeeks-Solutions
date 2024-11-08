@@ -10,26 +10,23 @@ class Solution {
     // Function to reverse words in a given string.
     string reverseWords(string str) {
         // code here
-    vector<string> words;
-    string word;
-    
-    // Step 1: Split the string by '.' and store each word
-    stringstream ss(str);
-    while (getline(ss, word, '.')) {
-        words.push_back(word);
-    }
-    
-    // Step 2: Reverse the vector of words
-    int n = words.size();
-    string result;
-    for (int i = n - 1; i >= 0; i--) {
-        result += words[i];
-        if (i != 0) {
-            result += '.';  // Add dots between words
+        stringstream ss(str);
+        string token;
+        vector<string> words;
+        
+        // Extract words from the stringstream and store them in the vector
+        while (getline(ss, token, '.')) {
+            words.push_back(token);
         }
-    }
-    
-    return result;
+        
+        // Rebuild the string with the reversed word order
+        string result = "";
+        for (int i = words.size() - 1; i >= 0; --i) {
+            result += words[i];
+            if (i != 0) result += ".";  // Add a dot after each word except the last one
+        }
+        
+        return result;
     }
 };
 
@@ -42,6 +39,9 @@ int main() {
         cin >> s;
         Solution obj;
         cout << obj.reverseWords(s) << endl;
+
+        cout << "~"
+             << "\n";
     }
 }
 // } Driver Code Ends
