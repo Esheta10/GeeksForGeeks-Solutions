@@ -12,22 +12,20 @@ class Solution {
   public:
     int binarysearch(vector<int> &arr, int k) {
         // code here
-        int left = 0;
-    int right = arr.size() - 1;
-    
-    while (left <= right) {
-        int mid = left + (right - left) / 2; // To prevent overflow
+        int left=0;
+        int right=arr.size()-1;
         
-        if (arr[mid] == k) {
-            return mid;  // k found at index mid
-        } else if (arr[mid] < k) {
-            left = mid + 1;  // Search right half
-        } else {
-            right = mid - 1;  // Search left half
+        while(left<=right)
+        {
+            int mid=left+(right-left)/2;
+            if(arr[mid]==k)
+                return mid;
+            else if(arr[mid]<k)
+                left=mid+1;
+            else
+                right=mid-1;
         }
-    }
-    
-    return -1;  // k not found
+        return -1;
     }
 };
 
@@ -50,6 +48,7 @@ int main() {
         Solution ob;
         int res = ob.binarysearch(arr, k);
         cout << res << endl;
+        cout << "~" << endl;
     }
     return 0;
 }
