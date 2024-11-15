@@ -47,34 +47,15 @@ class Solution {
     Node* pairWiseSwap(Node* head) {
         // The task is to complete this method
          // If the list is empty or has only one node, no swapping needed
-    if (!head || !head->next) return head;
-
-    // Initialize previous and current pointers
-    Node* prev = NULL;
-    Node* curr = head;
-
-    // Update the head to the second node after the first swap
-    head = head->next;
-
-    // Traverse and swap pairwise
-    while (curr && curr->next) 
-    {
-        Node* nextPair = curr->next->next;
-        Node* second = curr->next;
-
-        // Perform swapping
-        second->next = curr;
-        curr->next = nextPair;
-
-        // Update the previous node's next to the new head of the pair
-        if (prev) prev->next = second;
-
-        // Move the pointers forward for the next pair
-        prev = curr;
-        curr = nextPair;
-    }
-
-    return head;
+    if(head==NULL || head->next==NULL)
+        return head;
+        
+    Node* temp = head->next;
+    head->next=pairWiseSwap(head->next->next);
+    temp->next=head;
+    
+    return temp;
+    
     }
 };
 
