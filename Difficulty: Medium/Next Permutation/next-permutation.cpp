@@ -8,33 +8,25 @@ using namespace std;
 
 class Solution {
   public:
-    vector<int> nextPermutation(vector<int> arr) {
+    void nextPermutation(vector<int>& arr) {
         // code here
-        int n=arr.size();
-        int gola_index=-1;
-        for(int i=n-1;i>0;i--)
+        int n = arr.size();
+        int i = n-2;
+        
+        while(i>=0 && arr[i]>=arr[i+1])
         {
-            if(arr[i]>arr[i-1])
-            {
-                gola_index=i-1;
-                break;
-            }
+            i--;
         }
-        if(gola_index != -1)
+        if(i>=0)
         {
-            int swap_index=gola_index;
-            for(int j=n-1;j>=gola_index;j--)
+            int j = n-1;
+            while(arr[j]<=arr[i])
             {
-                if(arr[j]>arr[gola_index])
-                    {
-                        swap_index=j;
-                        break;
-                    }
+                j--;
             }
-            swap(arr[gola_index],arr[swap_index]);
+            swap(arr[i],arr[j]);
         }
-        reverse(arr.begin()+gola_index+1,arr.end());
-        return arr;
+        reverse(arr.begin()+i+1,arr.end());
     }
 };
 
@@ -54,9 +46,9 @@ int main() {
         }
         Solution ob;
         int n = arr.size();
-        vector<int> ans = ob.nextPermutation(arr);
+        ob.nextPermutation(arr);
         for (int i = 0; i < n; i++) {
-            cout << ans[i] << " ";
+            cout << arr[i] << " ";
         }
         cout << "\n";
     }
