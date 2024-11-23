@@ -52,24 +52,22 @@ class Solution {
     Node* removeDuplicates(Node* head) {
 
         // code here
-        if (head == NULL) return NULL; // If the list is empty, return NULL
-    
-    Node* current = head;
-    
-    // Traverse the linked list
-    while (current != NULL && current->next != NULL) {
-        if (current->data == current->next->data) {
-            // Duplicate node found, skip the next node
-            Node* temp = current->next;
-            current->next = current->next->next;
-            delete temp; // Free the memory of the duplicate node
-        } else {
-            // Move to the next node if no duplicate
-            current = current->next;
+        if(head==NULL || head->next==NULL)
+            return head;
+        
+        Node* curr = head;
+        while(curr!=NULL && curr->next!=NULL)
+        {
+            if(curr->data==curr->next->data)
+            {
+                curr->next = curr->next->next;
+            }
+            else
+            {
+                curr = curr->next;
+            }
         }
-    }
-    
-    return head;
+        return head;
     }
 };
 
@@ -107,6 +105,9 @@ int main() {
         Node *result = ob.removeDuplicates(head);
         print(result);
         cout << endl;
+
+        cout << "~"
+             << "\n";
     }
     return 0;
 }
