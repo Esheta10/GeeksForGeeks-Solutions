@@ -10,12 +10,35 @@ class Solution {
   public:
     int search(int n, int arr[]) {
         // code
-        int result = 0;
+        //Approach-1: XOR Operation: O(n)
+       /* int result = 0;
         for(int i=0;i<n;i++)
         {
             result ^= arr[i];
         }
-        return result;
+        return result; */
+        //Approach-2: Binary Search: O(log(n))
+        int l=0;
+        int h=n-1;
+        while(l<h)
+        {
+            int mid=l+(h-l)/2;
+            if(mid%2==0)//mid is even
+            {
+                if(arr[mid]==arr[mid+1])
+                    l=mid+2;
+                else
+                    h=mid;
+            }
+            else//mid is odd
+            {
+                if(arr[mid]==arr[mid-1])
+                    l=mid+1;
+                else
+                    h=mid;
+            }
+        }
+        return arr[l];
     }
 };
 
