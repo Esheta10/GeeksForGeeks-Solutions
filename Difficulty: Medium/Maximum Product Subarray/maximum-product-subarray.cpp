@@ -5,30 +5,30 @@ using namespace std;
 
 
 // } Driver Code Ends
-// User function template for C++
+// User function Template for C++
 class Solution {
   public:
-
     // Function to find maximum product subarray
-    long long maxProduct(vector<int> &arr) {
-        // code here
-        long long maxProduct = arr[0];
-    long long minProduct = arr[0];
-    long long result = arr[0];
-    
-    for (int i = 1; i < arr.size(); i++) {
-        // If current element is negative, swap max and min
-        if (arr[i] < 0)
-            swap(maxProduct, minProduct);
+    int maxProduct(vector<int> &arr) {
+        // Your Code Here
+        if(arr.empty())
+            return 0;
+            
+        int max_prod=arr[0];
+        int min_prod=arr[0];
+        int result=arr[0];
         
-        // Update max and min product for current index
-        maxProduct = max((long long)arr[i], maxProduct * arr[i]);
-        minProduct = min((long long)arr[i], minProduct * arr[i]);
-        
-        // Update the global maximum product
-        result = max(result, maxProduct);
-    }
-    return result;
+        for(int i=1;i<arr.size();i++)
+        {
+            if(arr[i]<0)
+                swap(max_prod,min_prod);
+                
+            max_prod = max(arr[i],arr[i]*max_prod);
+            min_prod = min(arr[i],arr[i]*min_prod);
+            
+            result = max(result,max_prod);
+        }
+        return result;
     }
 };
 
@@ -37,16 +37,31 @@ class Solution {
 int main() {
     int t;
     cin >> t;
+    cin.ignore();
     while (t--) {
-        int n, i;
-        cin >> n;
-        vector<int> arr(n);
-        for (i = 0; i < n; i++) {
-            cin >> arr[i];
+        // int n, i;
+        // cin >> n;
+        // vector<int> arr(n);
+        // for (i = 0; i < n; i++) {
+        //     cin >> arr[i];
+        // }
+
+        vector<int> arr;
+        string input;
+
+        // Read array
+        getline(cin, input);
+        stringstream ss(input);
+        int number;
+        while (ss >> number) {
+            arr.push_back(number);
         }
         Solution ob;
         auto ans = ob.maxProduct(arr);
         cout << ans << "\n";
+
+        cout << "~"
+             << "\n";
     }
     return 0;
 }
