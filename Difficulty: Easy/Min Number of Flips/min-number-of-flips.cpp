@@ -11,7 +11,9 @@ int32_t main()
         string s; cin >> s;
 
         cout << minFlips (s) << endl;
-    }
+    
+cout << "~" << "\n";
+}
 }
 // Contributed By: Pranay Bansal
 
@@ -22,27 +24,18 @@ int minFlips (string S)
 {
     // your code here
     int n = S.length();
-    int flipCount1 = 0, flipCount2 = 0;
-
-    // Checking with the pattern starting with '0' (i.e., "010101...")
-    for (int i = 0; i < n; i++) {
-        // For even index, expected character is '0', for odd index it is '1'
-        if (i % 2 == 0 && S[i] != '0') {
-            flipCount1++;  // Flip needed
-        } else if (i % 2 == 1 && S[i] != '1') {
-            flipCount1++;  // Flip needed
-        }
+    int flipsPattern1 = 0; // Flips to match "010101..."
+    int flipsPattern2 = 0; // Flips to match "101010..."
+    
+    for (int i = 0; i < n; ++i) {
+        char expectedPattern1 = (i % 2 == 0) ? '0' : '1'; // Pattern 1: "0101..."
+        char expectedPattern2 = (i % 2 == 0) ? '1' : '0'; // Pattern 2: "1010..."
+        
+        if (S[i] != expectedPattern1) 
+            flipsPattern1++; // Count flips for pattern 1
+        if (S[i] != expectedPattern2) 
+            flipsPattern2++; // Count flips for pattern 2
     }
-    // Checking with the pattern starting with '1' (i.e., "101010...")
-    for (int i = 0; i < n; i++) {
-        // For even index, expected character is '1', for odd index it is '0'
-        if (i % 2 == 0 && S[i] != '1') {
-            flipCount2++;  // Flip needed
-        } else if (i % 2 == 1 && S[i] != '0') {
-            flipCount2++;  // Flip needed
-        }
-    }
-
-    // Return the minimum number of flips between the two patterns
-    return min(flipCount1, flipCount2);
+    
+    return min(flipsPattern1, flipsPattern2);
 }
