@@ -7,29 +7,15 @@ using namespace std;
 class Solution {
   public:
     // Function is to check whether two strings are anagram of each other or not.
-    bool isAnagram(string a, string b) {
-
+    bool areAnagrams(string& s1, string& s2) {
         // Your code here
-        //{ Driver Code Starts
-
-        if (a.length() != b.length())
+        if(s1.length()!=s2.length())
             return false;
-
-        // Create frequency arrays for both strings
-        vector<int> countA(26, 0), countB(26, 0);
-
-        // Count frequency of characters in both strings
-        for (int i = 0; i < a.length(); i++) {
-            countA[a[i] - 'a']++;
-            countB[b[i] - 'a']++;
-        }
-
-        // Compare the frequency arrays
-        return countA == countB;
+        sort(s1.begin(),s1.end());
+        sort(s2.begin(),s2.end());
+        return s1==s2;
     }
 };
-
-
 
 //{ Driver Code Starts.
 
@@ -44,10 +30,11 @@ int main() {
 
         cin >> c >> d;
         Solution obj;
-        if (obj.isAnagram(c, d))
-            cout << "YES" << endl;
+        if (obj.areAnagrams(c, d))
+            cout << "true" << endl;
         else
-            cout << "NO" << endl;
+            cout << "false" << endl;
+        cout << "~" << endl;
     }
 }
 
