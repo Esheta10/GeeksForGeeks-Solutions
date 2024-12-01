@@ -10,11 +10,12 @@ class Solution {
   public:
     int getSingle(vector<int>& arr) {
         // code here
-    int result = 0;
-    for (int num : arr) {
-        result ^= num; // Apply XOR to each element
-    }
-    return result; // The remaining number is the one that occurs an odd number of times
+        int result = 0;
+        for(int i=0;i<arr.size();i++)
+        {
+            result = result ^ arr[i];
+        }
+        return result;
     }
 };
 
@@ -37,6 +38,7 @@ int main() {
         Solution obj;
         int res = obj.getSingle(arr);
         cout << res << endl;
+        cout << "~" << endl;
     }
     return 0;
 }
