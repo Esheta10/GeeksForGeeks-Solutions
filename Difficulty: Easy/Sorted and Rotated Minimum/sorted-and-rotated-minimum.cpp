@@ -8,19 +8,18 @@ class Solution {
   public:
     int findMin(vector<int>& arr) {
         // complete the function here
-        int n=arr.size();
-        int l=0,r=n-1;
-        while(l<r)
+        int low=0,high=arr.size()-1;
+        while(low<high)
         {
-            int mid=l+(r-l)/2;
-            if(arr[mid]>arr[r])
+            int mid = low+(high-low)/2;
+            if(arr[mid]>arr[high])
             {
-                l=mid+1;
+                low=mid+1;
             }
             else
-                r=mid;
+                high=mid;
         }
-        return arr[r];
+        return arr[low];
     }
 };
 
@@ -42,6 +41,7 @@ int main() {
             nums.push_back(num);
         }
         cout << ob.findMin(nums) << endl;
+        cout << "~" << endl;
     }
     return 0;
 }
