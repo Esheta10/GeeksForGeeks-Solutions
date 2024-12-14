@@ -7,32 +7,36 @@ using namespace std;
 class Solution {
   public:
     int search(vector<int>& arr, int key) {
-        // complete the function here
-        int low=0;
-        int high=arr.size()-1;
+    // complete the function here
+    int low = 0, high = arr.size()- 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
         
-        while(low<=high)
-        {
-            int mid=low+(high-low)/2;
-            if(arr[mid]==key)
-                return mid;
-            else if(arr[low]<=arr[mid])
-            {
-                if(arr[low]<=key && key<arr[mid])
-                    high=mid-1;
-                else
-                    low=mid+1;
-            }
-            else
-            {
-                if(arr[mid]<key && key<=arr[high])
-                    low=mid+1;
-                else
-                    high=mid-1;
+        // Check if the key is at mid
+        if (arr[mid] == key) {
+            return mid;
+        }
+        
+        // If the left half is sorted
+        if (arr[low] <= arr[mid]) {
+            if (arr[low] <= key && key < arr[mid]) {
+                high = mid - 1;  // key is in the left half
+            } else {
+                low = mid + 1;   // key is in the right half
             }
         }
-        return -1;
+        // If the right half is sorted
+        else {
+            if (arr[mid] < key && key <= arr[high]) {
+                low = mid + 1;    // key is in the right half
+            } else {
+                high = mid - 1;   // key is in the left half
+            }
+        }
     }
+    
+    return -1;  // key not found
+       }
 };
 
 //{ Driver Code Starts.
@@ -51,9 +55,6 @@ int main() {
         }
         int key;
         cin >> key;
-        // cin.ignore();
-        // if (f)
-        //     return 0;
         Solution ob;
         cout << ob.search(arr, key) << endl;
         cout << "~" << endl;
