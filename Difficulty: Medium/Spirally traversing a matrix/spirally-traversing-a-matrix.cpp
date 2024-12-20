@@ -6,68 +6,46 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    vector<int> spirallyTraverse(vector<vector<int> > &matrix) {
+    vector<int> spirallyTraverse(vector<vector<int> > &mat) {
         // code here
-        if(matrix.size()==0)
-            return {};
-         
-         int m=matrix.size();
-         int n=matrix[0].size();
-         
-         int top=0;
-         int down=m-1;
-         int left=0;
-         int right=n-1;
-         
-         int id=0;
-         vector<int> result;
-         while(top<=down && left<=right)
-         {
-             //left to right
-             //constant:row(top)
-             if(id==0)
-             {
-                 for(int i=left;i<=right;i++)
-                 {
-                     result.push_back(matrix[top][i]);
-                 }
-                top++;
-             }
-             //top to down
-             //constant:column(right)
-             if(id==1)
-             {
-                 for(int i=top;i<=down;i++)
-                 {
-                     result.push_back(matrix[i][right]);
-                 }
-                 right--;
-             }
-             //right to left
-             //constant:row(down)
-             if(id==2)
-             {
-                for(int i=right;i>=left;i--)
-                 {
-                     result.push_back(matrix[down][i]);
-                 }
-                 down--;
-             }
-             //down to top
-             //constant:column(left)
-            if(id==3)
-            {
-                 for(int i=down;i>=top;i--)
-                 {
-                     result.push_back(matrix[i][left]);
-                 }
-                 left++;
+        vector<int> result;
+    if (mat.empty() || mat[0].empty()) return result;
+    
+    int n = mat.size();    // Number of rows
+    int m = mat[0].size(); // Number of columns
+    int top = 0, bottom = n - 1, left = 0, right = m - 1;
+    
+    while (top <= bottom && left <= right) {
+        // Traverse from left to right along the top boundary
+        for (int i = left; i <= right; ++i) {
+            result.push_back(mat[top][i]);
+        }
+        top++; // Move the top boundary downward
+
+        // Traverse from top to bottom along the right boundary
+        for (int i = top; i <= bottom; ++i) {
+            result.push_back(mat[i][right]);
+        }
+        right--; // Move the right boundary leftward
+
+        if (top <= bottom) {
+            // Traverse from right to left along the bottom boundary
+            for (int i = right; i >= left; --i) {
+                result.push_back(mat[bottom][i]);
             }
-            id++;
-            if(id==4)
-                id=0;
-         }
-        return result;
+            bottom--; // Move the bottom boundary upward
+        }
+
+        if (left <= right) {
+            // Traverse from bottom to top along the left boundary
+            for (int i = bottom; i >= top; --i) {
+                result.push_back(mat[i][left]);
+            }
+            left++; // Move the left boundary rightward
+        }
+    }
+    
+    return result;
     }
 };
 
@@ -79,9 +57,10 @@ int main() {
     while (t--) {
         int r, c;
         cin >> r >> c;
-        vector<vector<int>> matrix(r, vector<int>(c, 0));
+        vector<vector<int>> matrix(r);
 
         for (int i = 0; i < r; i++) {
+            matrix[i].assign(c, 0);
             for (int j = 0; j < c; j++) {
                 cin >> matrix[i][j];
             }
@@ -92,6 +71,9 @@ int main() {
         for (int i = 0; i < result.size(); ++i)
             cout << result[i] << " ";
         cout << endl;
+
+        cout << "~"
+             << "\n";
     }
     return 0;
 }
