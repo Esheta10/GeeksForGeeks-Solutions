@@ -7,28 +7,20 @@ using namespace std;
 // User function template for C++
 class Solution {
   public:
-    // Function to check if array has 2 elements
-    // whose sum is equal to the given value
-    bool hasArrayTwoCandidates(vector<int>& arr, int x) {
+    bool twoSum(vector<int>& arr, int target) {
         // code here
-        int i=0;
-        int j=arr.size()-1;
-        int target=x;
-        sort(arr.begin(),arr.end());
-        while(i<j)
+        int n = arr.size();
+        unordered_map<int,int> mp;
+        for(int i=0;i<n;i++)
         {
-            int sum=arr[i]+arr[j];
-            if(sum<target)
-                i++;
-            else if(sum>target)
-                j--;
-            else
+            int remaining = target - arr[i];
+            if(mp.find(remaining)!=mp.end())
             {
-                //sum==target
                 return true;
             }
+            mp[arr[i]]=i;
         }
-         return false;
+        return false;;
     }
 };
 
@@ -37,11 +29,11 @@ class Solution {
 int main() {
     int t;
     cin >> t;
-    cin.ignore(); // To discard any leftover newline characters
+    cin.ignore();
     while (t--) {
         int x;
         cin >> x;
-        cin.ignore(); // To discard any leftover newline characters
+        cin.ignore();
 
         vector<int> arr;
         string input;
@@ -53,8 +45,9 @@ int main() {
         }
 
         Solution ob;
-        auto ans = ob.hasArrayTwoCandidates(arr, x);
+        auto ans = ob.twoSum(arr, x);
         cout << (ans ? "true" : "false") << endl;
+        cout << "~" << endl;
     }
 
     return 0;
