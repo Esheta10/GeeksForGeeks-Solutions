@@ -9,7 +9,7 @@ class Solution {
 
     // Function to find the trapped water between the blocks.
   public:
-  vector<int> getLeftMax(vector<int>& arr,int n)
+    vector<int> getLeftMax(vector<int> arr,int n)
     {
         vector<int> leftMax(n);
         leftMax[0]=arr[0];
@@ -19,7 +19,7 @@ class Solution {
         }
         return leftMax;
     }
-    vector<int> getRightMax(vector<int>&arr,int n)
+    vector<int> getRightMax(vector<int> arr,int n)
     {
         vector<int> rightMax(n);
         rightMax[n-1]=arr[n-1];
@@ -29,48 +29,45 @@ class Solution {
         }
         return rightMax;
     }
-        
-    long long trappingWater(vector<int> &arr) {
+    int trappingWater(vector<int> &arr) {
         // code here
         int n = arr.size();
-        if(n==0 || n==1)
+        if(n==1 || n==0)
             return 0;
-        vector<int> leftMax=getLeftMax(arr,n);
-        vector<int> rightMax=getRightMax(arr,n);
-         long long sum=0;
+        vector<int> leftMax = getLeftMax(arr,n);
+        vector<int> rightMax = getRightMax(arr,n);
+        int sum=0;
         for(int i=0;i<n;i++)
         {
-            sum += min(leftMax[i],rightMax[i]) - arr[i];
+            sum += min(leftMax[i],rightMax[i])-arr[i];
         }
         return sum;
     }
 };
 
 //{ Driver Code Starts.
-
 int main() {
-
     int t;
-    // testcases
     cin >> t;
-
+    cin.ignore();
     while (t--) {
-        int n;
+        vector<int> arr;
+        string input;
 
-        // size of array
-        cin >> n;
-
-        vector<int> a(n);
-
-        // adding elements to the array
-        for (int i = 0; i < n; i++) {
-            cin >> a[i];
+        // Read first array
+        getline(cin, input);
+        stringstream ss(input);
+        int number;
+        while (ss >> number) {
+            arr.push_back(number);
         }
-        Solution obj;
-        // calling trappingWater() function
-        cout << obj.trappingWater(a) << endl;
-    }
 
+        Solution ob;
+        int res = ob.trappingWater(arr);
+
+        cout << res << endl << "~" << endl;
+    }
     return 0;
 }
+
 // } Driver Code Ends
