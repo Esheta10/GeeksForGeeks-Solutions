@@ -8,33 +8,24 @@ using namespace std;
 class Solution {
   public:
     // Function to find equilibrium point in the array.
-    // arr: input array
-    int equilibriumPoint(vector<long long> &arr) {
-        // Your code here
-     long long totalSum = 0;
-    long long leftSum = 0;
-
-    // Calculate the total sum of the array
-    for (long long num : arr) {
-        totalSum += num;
+    int findEquilibrium(vector<int> &arr) {
+        // code here
+    int totalSum = 0, leftSum = 0;
+    for (int num : arr) {
+        totalSum += num; // Calculate total sum
     }
 
-    // Iterate through the array to find the equilibrium point
     for (int i = 0; i < arr.size(); i++) {
-        // Right sum is total sum minus left sum minus current element
-        long long rightSum = totalSum - leftSum - arr[i];
+        totalSum -= arr[i]; // Update right sum by excluding current element
 
-        // Check if left sum equals right sum
-        if (leftSum == rightSum) {
-            return i + 1;  // Return 1-based index
+        if (leftSum == totalSum) {
+            return i; // Equilibrium point found
         }
 
-        // Update left sum for the next iteration
-        leftSum += arr[i];
+        leftSum += arr[i]; // Update left sum
     }
 
-    // If no equilibrium point found, return -1
-    return -1;
+    return -1; // No equilibrium point found
     }
 };
 
@@ -46,7 +37,7 @@ int main() {
     cin.ignore(); // To discard any leftover newline characters
     while (t--)   // while testcases exist
     {
-        vector<long long> arr;
+        vector<int> arr;
         string input;
         getline(cin, input); // Read the entire line for the array elements
         stringstream ss(input);
@@ -56,7 +47,8 @@ int main() {
         }
 
         Solution ob;
-        cout << ob.equilibriumPoint(arr) << endl;
+        cout << ob.findEquilibrium(arr) << endl;
+        cout << "~" << endl;
     }
 }
 // } Driver Code Ends
