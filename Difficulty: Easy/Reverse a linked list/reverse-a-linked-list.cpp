@@ -1,5 +1,5 @@
 //{ Driver Code Starts
-// Initial Template for C++// C program to find n'th Node in linked list
+// Initial Template for C++
 #include <algorithm>
 #include <bits/stdc++.h>
 #include <cmath>
@@ -39,33 +39,27 @@ struct Node
 
 class Solution {
   public:
-    // Function to reverse a linked list.
-    struct Node* reverseList(struct Node* head) {
+    Node* reverseList(struct Node* head) {
         // code here
-        // return head of reversed list
-        if(head==NULL || head->next==NULL)
-            return head;
-            
-        struct Node* prev = NULL;
-        struct Node* curr = head;
-        struct Node* nextNode = NULL;
-        
-        while(curr)
-        {
-            nextNode = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = nextNode;
-        }
-        return prev;
+     Node* prev = NULL;
+     Node* curr = head;
+
+    while (curr != NULL) {
+        Node* next = curr->next; // Save the next node
+        curr->next = prev;          // Reverse the current node's link
+        prev = curr;                // Move prev to the current node
+        curr = next;                // Move curr to the next node
+    }
+
+    return prev; // New head of the reversed list
     }
 };
 
 
 //{ Driver Code Starts.
 
-void printList(struct Node *head) {
-    struct Node *temp = head;
+void printList(Node *head) {
+    Node *temp = head;
     while (temp != NULL) {
         printf("%d ", temp->data);
         temp = temp->next;
@@ -78,7 +72,7 @@ int main() {
     cin >> T;
     cin.ignore();
     while (T--) {
-        struct Node *head = NULL, *tail = NULL;
+        Node *head = NULL, *tail = NULL;
 
         vector<int> arr;
         string input;
@@ -91,7 +85,6 @@ int main() {
         int index = 0;
         n = arr.size();
         if (n != 0) {
-
             head = new Node(arr[0]);
             tail = head;
         }
@@ -107,7 +100,7 @@ int main() {
 
         printList(head);
         cout << endl;
-        cout << "~" << endl;
+        cout << "~\n";
     }
     return 0;
 }
