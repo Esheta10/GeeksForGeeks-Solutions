@@ -39,8 +39,6 @@ Node *insertSorted(Node *head, int data) {
 
 
 // } Driver Code Ends
-
-
 /* Link list Node
 struct Node {
   int data;
@@ -52,26 +50,34 @@ struct Node {
   }
 };
 */
-// Function to merge two sorted linked list.
 class Solution {
   public:
     Node* sortedMerge(Node* head1, Node* head2) {
         // code here
-        if(head1==NULL)
-            return head2;
-        if(head2==NULL)
-            return head1;
-        if(head1->data<=head2->data)
-        {
-            head1->next=sortedMerge(head1->next,head2);
-            return head1;
+        // Create a dummy node to simplify handling the head
+    Node dummy(0);
+    Node* tail = &dummy;
+
+    // Traverse both lists and link nodes in sorted order
+    while (head1 != nullptr && head2 != nullptr) {
+        if (head1->data <= head2->data) {
+            tail->next = head1;
+            head1 = head1->next;
+        } else {
+            tail->next = head2;
+            head2 = head2->next;
         }
-        else
-        {
-            head2->next=sortedMerge(head1,head2->next);
-            return head2;
-        }
-        return NULL;
+        tail = tail->next;
+    }
+
+    // Attach the remaining nodes from either list
+    if (head1 != nullptr) {
+        tail->next = head1;
+    } else {
+        tail->next = head2;
+    }
+
+    return dummy.next; // Return the merged list starting from the next of dummy node
     }
 };
 
