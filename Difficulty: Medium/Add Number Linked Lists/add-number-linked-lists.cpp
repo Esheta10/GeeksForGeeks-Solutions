@@ -65,100 +65,71 @@ struct Node {
 };
 
 */
-void removeZero(Node* &head){
-    Node* next = NULL;
-    while(head != NULL && head -> data == 0){
-        next = head -> next;
-        head -> next = NULL;
-        delete head;
-        head = next;
-    }
-    
-}
-
-void reverse(Node* &head){
-    Node* curr = head;
-    Node* prev = NULL;
-    Node* next = NULL;
-    
-    while(curr != NULL){
-        next = curr -> next;
-        curr -> next = prev;
-        prev = curr;
-        curr = next;
-    }
-    
-    head = prev;
-}
-
-void insertAtHead(Node* &head, int d){
-    
-    if(head == NULL){
-        Node* temp = new Node(d);
-        head = temp;
-        return;
-    }
-    
-    Node* temp = new Node(d);
-    temp -> next = head;
-    head = temp;
-    
-    return;
-    
-}
 
 class Solution {
   public:
-    // Function to add two numbers represented by linked list.
+  // Helper function to reverse a linked list
+   Node* reverseList(Node* head) {
+    Node* prev = nullptr;
+    Node* current = head;
+    while (current) {
+        Node* nextNode = current->next;
+        current->next = prev;
+        prev = current;
+        current = nextNode;
+    }
+    return prev;
+}
+
     Node* addTwoLists(Node* num1, Node* num2) {
-        Node* head = NULL;
-        
-        removeZero(num1);
-        removeZero(num2);
-        
-        reverse(num1);
-        reverse(num2);
-        
-        int carry = 0;
-        int value;
-        int ans;
-        while(num1 != NULL && num2 != NULL){
-            
-                value = (num1 -> data) + (num2 -> data) + (carry);
-                carry = value/10;
-                ans = value%10;
-                insertAtHead(head, ans);
-                
-                num1 = num1 -> next;
-                num2 = num2 -> next;
-                
+        // code here
+        // Reverse the input lists
+    // Reverse the input lists
+    num1 = reverseList(num1);
+    num2 = reverseList(num2);
+
+    Node* resultHead = nullptr;
+    Node* resultTail = nullptr;
+    int carry = 0;
+
+    // Add the numbers digit by digit
+    while (num1 || num2 || carry) {
+        int sum = carry;
+        if (num1) {
+            sum += num1->data;
+            num1 = num1->next;
         }
-        
-        while(num1 != NULL){
-            value = (num1 -> data) + carry;
-            carry = value/10;
-            ans = value%10;
-            insertAtHead(head, ans);
-            num1 = num1 -> next;
-        }
-        
-        while(num2 != NULL){
-            value = (num2 -> data) + carry;
-            carry = value/10;
-            ans = value%10;
-            insertAtHead(head, ans);
-            num2 = num2 -> next;
-        }
-        
-        if(carry == 1){
-            insertAtHead(head, 1);
+        if (num2) {
+            sum += num2->data;
+            num2 = num2->next;
         }
 
-        
-        return head;
+        carry = sum / 10;
+        int digit = sum % 10;
+
+        // Create a new node for the current digit
+        Node* newNode = new Node(digit);
+        if (!resultHead) {
+            resultHead = resultTail = newNode;
+        } else {
+            resultTail->next = newNode;
+            resultTail = newNode;
+        }
+    }
+
+    // Reverse the result to get the final answer
+    resultHead = reverseList(resultHead);
+
+    // Remove leading zeros (if any)
+    while (resultHead && resultHead->data == 0 && resultHead->next) {
+        Node* temp = resultHead;
+        resultHead = resultHead->next;
+        delete temp;
+    }
+
+    return resultHead;
     }
 };
-
 
 
 //{ Driver Code Starts.
@@ -174,6 +145,7 @@ int main() {
         Solution ob;
         Node* res = ob.addTwoLists(num1, num2);
         printList(res);
+        cout << "~" << endl;
     }
     return 0;
 }
