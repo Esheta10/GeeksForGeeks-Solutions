@@ -43,21 +43,21 @@ class Solution {
     // Function to check if the linked list has a loop.
     bool detectLoop(Node* head) {
         // your code here
-        if (!head) return false;  // If the list is empty, there can't be a loop
+         if (!head || !head->next) return false; // No loop if the list is empty or has a single node
 
-    Node* slow = head;    // Tortoise
-    Node* fast = head;    // Hare
+        Node* slow = head;
+        Node* fast = head;
 
-    while (fast && fast->next) {
-        slow = slow->next;              // Move slow pointer by 1
-        fast = fast->next->next;       // Move fast pointer by 2
+        while (fast && fast->next) {
+            slow = slow->next;        // Move slow pointer one step
+            fast = fast->next->next;  // Move fast pointer two steps
 
-        if (slow == fast) {             // If they meet, there's a cycle
-            return true;
+            if (slow == fast) {
+                return true; // Loop detected
+            }
         }
-    }
 
-    return false; // If we reach the end of the list, there's no cycle
+        return false; // No loop
     }
 };
 
