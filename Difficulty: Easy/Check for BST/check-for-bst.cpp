@@ -20,29 +20,19 @@ struct Node {
 class Solution {
   public:
     // Function to check whether a Binary Tree is BST or not.
-    // Helper function to validate the BST property
-bool isBSTUtil(Node* node, int minVal, int maxVal) {
-    // An empty tree is a BST
-    if (node == NULL) {
-        return true;
+    bool isBSTHelper(Node* node, long long min_val, long long max_val) {
+        if (!node) return true;
+
+        if (node->data <= min_val || node->data >= max_val) return false;
+
+        return isBSTHelper(node->left, min_val, node->data) &&
+               isBSTHelper(node->right, node->data, max_val);
     }
 
-    // The current node must lie between minVal and maxVal
-    if (node->data <= minVal || node->data >= maxVal) {
-        return false;
+    // Function to check whether a Binary Tree is BST or not.
+    bool isBST(Node* root) {
+        return isBSTHelper(root, LLONG_MIN, LLONG_MAX);
     }
-
-    // Recursively check the left and right subtrees
-    // Left subtree must be < node->data, right subtree must be > node->data
-    return isBSTUtil(node->left, minVal, node->data) &&
-           isBSTUtil(node->right, node->data, maxVal);
-}
-
-// Main function to check if the binary tree is a BST
-bool isBST(Node* root) {
-    // Start with the entire range for integer values
-    return isBSTUtil(root, INT_MIN, INT_MAX);
-}
 };
 
 
@@ -140,6 +130,7 @@ int main() {
 
         else
             cout << "false\n";
+        cout << "~" << endl;
     }
     return 0;
 }
