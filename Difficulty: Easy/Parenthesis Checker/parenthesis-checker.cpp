@@ -1,61 +1,51 @@
 //{ Driver Code Starts
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 
 // } Driver Code Ends
 
-class Solution
-{
-    public:
-    //Function to check if brackets are balanced or not.
-    bool ispar(string x)
-    {
-        // Your code here
-        stack<char> st;
-        for(char &ch:x)
-        {
-            // If the character is an opening bracket, push it onto the stack
-            if(ch=='(' || ch=='{' || ch=='[')
-                st.push(ch);
-            else
-            {
-                // If the stack is empty, there's no matching opening bracket
-                if(st.empty())
-                    return false;
-                
-                char top=st.top();
-                
-                if(ch==')' && st.top()!='('
-                || ch=='}' && st.top()!='{'
-                || ch==']' && st.top()!='[')
-                    return false;
-                
-                 st.pop();    
-            }
-                
-        }
-        // If the stack is empty, all brackets were matched correctly
-        return st.empty();
-    }
+class Solution {
+  public:
+    bool isBalanced(string& s) {
+        // code here
+        stack<char> stk;
+        // Map to store corresponding pairs of opening and closing brackets
+      unordered_map<char, char> bracketMap = {{')', '('}, {'}', '{'}, {']', '['}};
 
+        for (char c : s) {
+            if (bracketMap.count(c)) {
+                // If the stack is empty or the top element does not match, return false
+                if (stk.empty() || stk.top() != bracketMap[c]) {
+                    return false;
+                }
+                stk.pop(); // Pop the matching opening bracket
+            } else {
+                stk.push(c); // Push opening brackets onto the stack
+            }
+        }
+
+        // If the stack is empty, all brackets are matched, otherwise, they are not
+        return stk.empty();
+    }
 };
 
 //{ Driver Code Starts.
 
-int main()
-{
-   int t;
-   string a;
-   cin>>t;
-   while(t--)
-   {
-       cin>>a;
-       Solution obj;
-       if(obj.ispar(a))
-        cout<<"balanced"<<endl;
-       else
-        cout<<"not balanced"<<endl;
-   }
+int main() {
+    int t;
+    string a;
+    cin >> t;
+    while (t--) {
+        cin >> a;
+        Solution obj;
+        if (obj.isBalanced(a))
+            cout << "true" << endl;
+        else
+            cout << "false" << endl;
+
+        cout << "~"
+             << "\n";
+    }
 }
 // } Driver Code Ends
