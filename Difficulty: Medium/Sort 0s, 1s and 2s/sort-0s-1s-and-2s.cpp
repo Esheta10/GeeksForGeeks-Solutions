@@ -2,22 +2,23 @@ class Solution {
   public:
     void sort012(vector<int>& arr) {
         // code here
-        int n=arr.size();
-        int low=0,mid=0,high=n-1;
-        while(mid <= high)
-        {
-            if(arr[mid]==0)
-            {
-                swap(arr[mid],arr[low]);
-                low++;
-                mid++;
+        int n = arr.size();
+        int i = 0;
+        int j = 0;
+        int k = n-1;
+        
+        while(j<=k){
+            if(arr[j]==1){
+                j++;
             }
-            else if(arr[mid]==1)
-                mid++;
-            else
-            {
-                swap(arr[mid],arr[high]);
-                high--;
+            else if(arr[j]==2){
+                swap(arr[j],arr[k]);
+                k--;
+            }
+            else{
+                swap(arr[i],arr[j]);
+                i++;
+                j++;
             }
         }
     }
