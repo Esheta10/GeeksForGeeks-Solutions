@@ -2,28 +2,27 @@ class Solution {
   public:
     int thirdLargest(vector<int> &arr) {
         // Your code here
+        int n = arr.size();
+        
         int largest = INT_MIN;
         int second_largest = INT_MIN;
         int third_largest = INT_MIN;
         
-        for(int num :  arr){
+        for(int i=0;i<n;i++){
             
-            if(num >= largest){
+            if(arr[i] > largest){
                 third_largest = second_largest;
                 second_largest = largest;
-                largest = num;
+                largest = arr[i];
             }
-            
-            else if(num >= second_largest && num  <= largest ){
+            else if(arr[i] <= largest && arr[i] >= second_largest){
                 third_largest = second_largest;
-                second_largest = num ;
+                second_largest = arr[i];
             }
-            
-            else if(num >= third_largest && num <= second_largest){
-                third_largest = num;
+            else if(arr[i] <= second_largest && arr[i] >= third_largest){
+                third_largest = arr[i];
             }
         }
-        
         return third_largest;
     }
 };
