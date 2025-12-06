@@ -3,35 +3,36 @@ class Solution {
   public:
     void rearrange(vector<int> &arr) {
         // code here
-        vector<int> pos,neg;
+        int n = arr.size();
         
-        for(int num : arr){
-            
-            if(num >= 0)
-                pos.push_back(num);
-            else
+        vector<int> pos;
+        vector<int> neg;
+       
+        
+        for(int num:arr){
+            if(num<0){
                 neg.push_back(num);
+            } else {
+                pos.push_back(num);
+            }
         }
+        int i=0;
+        int j=0;
+        int k=0;
         
-        int i=0, j=0;
-        int n1 = pos.size();
-        int n2 = neg.size();
-        vector<int> ans;
-         ans.reserve(arr.size());
-        
-        while(i<n1 && j<n2){
-            ans.push_back(pos[i++]);
-            ans.push_back(neg[j++]);
-        }
-        
-        while(i<n1) // remaining positives
-            ans.push_back(pos[i++]);
-        
-        while(j<n2)
-            ans.push_back(neg[j++]);
+        while(i<pos.size() && j<neg.size()){
             
-        // Copy back to original array
-        for(int k = 0; k < ans.size(); k++)
-            arr[k] = ans[k];
+            arr[k++] = pos[i++];    // even index pe +ve
+            arr[k++] = neg[j++];    // odd index pe -ve
+            
+        }
+        
+        while(i<pos.size()){
+            arr[k++] = pos[i++];
+        }
+        
+        while(j<neg.size()){
+            arr[k++] = neg[j++];
+        }
     }
 };
