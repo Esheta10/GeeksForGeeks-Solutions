@@ -2,29 +2,33 @@ class Solution {
   public:
     int subarraySum(vector<int>& arr) {
         // code here
-        int n = arr.size();
         
-        // int temp=0, result=0;
+        // Brute Force - O(n^2)
+        // int totalSum = 0;
+        // int n = arr.size();
         
         // for(int i=0;i<n;i++){
             
-        //     temp=0;
-        //     for(int j=i;j<n;j++){
+        //     int currentSum = 0;
+        //     for(int j=i; j<n; j++){
                 
-        //         temp += arr[j];
-        //         result += temp;
+        //         currentSum += arr[j];
+        //         totalSum += currentSum;
         //     }
         // }
+        // return totalSum;
         
-        // Computing sum of subarray using formula
+        // Optimized Solution - O(n)
+        int n = arr.size();
+        int totalSum = 0;
         
-        int result=0;
         for(int i=0;i<n;i++){
-            int startChoices = i + 1;     // number of ways arr[i] can be the starting element
-            int endChoices = n - i;       // number of ways arr[i] can be the ending element
-            result += arr[i] * startChoices * endChoices;
+            
+            int count = (i+1)*(n-i);
+            int contribution = arr[i] * count;
+            
+            totalSum += contribution;
         }
-        
-        return result;
+        return totalSum;
     }
 };
