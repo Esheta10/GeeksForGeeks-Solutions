@@ -1,55 +1,25 @@
-//{ Driver Code Starts
-#include <bits/stdc++.h>
-using namespace std;
-typedef long long int ll;
-
-
-// } Driver Code Ends
-
 class Solution {
   public:
+    int t[100001];
+    int solve(vector<int>& arr, int i, int n){
+        
+        if(i>=n)
+            return 0;
+            
+        if(t[i] != -1)
+            return t[i];
+            
+        int steal = arr[i] + solve(arr, i+2, n);
+        int skip = solve(arr, i+1, n);
+        
+        return t[i] = max(steal,skip);
+    }
     int findMaxSum(vector<int>& arr) {
         // code here
-    int n = arr.size();
-    if (n == 0) return 0;
-    if (n == 1) return arr[0];
-
-    int prev2 = 0, prev1 = arr[0], curr;
-
-    for (int i = 1; i < n; i++) {
-        curr = max(prev1, arr[i] + prev2);
-        prev2 = prev1;
-        prev1 = curr;
+        int n = arr.size();
+        
+        memset(t, -1, sizeof(t));
+        
+        return solve(arr,0,n);
     }
-
-    return prev1;
-}
-
-
 };
-
-
-//{ Driver Code Starts.
-
-int main() {
-    int t;
-    cin >> t;
-    cin.ignore();
-    while (t--) {
-        vector<int> arr;
-        string input;
-        getline(cin, input);
-        stringstream ss(input);
-        int number;
-        while (ss >> number) {
-            arr.push_back(number);
-        }
-
-        Solution ob;
-        cout << ob.findMaxSum(arr) << endl;
-        cout << "~" << endl;
-    }
-    return 0;
-}
-
-// } Driver Code Ends
